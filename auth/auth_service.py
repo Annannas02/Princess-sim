@@ -24,13 +24,17 @@ class User(db.Model):
     
 with app.app_context():
     db.create_all()
+
+@app.route('/auth/status', methods=['GET'])
+def status():
+    return jsonify({"status": "Auth service is up and running!"}), 200
+
 # Registration endpoint with password hashing
-@app.route('/register', methods=['POST'])
+@app.route('/auth/register', methods=['POST'])
 def register():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-    role = data.get('role')
     
     # Check if user already exists
     if User.query.filter_by(username=username).first():
@@ -47,7 +51,7 @@ def register():
     return jsonify({"msg": "User registered successfully"}), 201
 
 # Login endpoint with password hashing verification
-@app.route('/login', methods=['POST'])
+@app.route('/auth/login', methods=['POST'])
 def login():
     data = request.get_json()
     username = data.get('username')
@@ -64,7 +68,7 @@ def login():
     return jsonify(access_token=access_token)
 
 # Protected route to get user details
-@app.route('/user', methods=['GET'])
+@app.route('/auth/user', methods=['GET'])
 @jwt_required()
 def get_user():
     user_id = get_jwt_identity()
@@ -79,7 +83,7 @@ def get_user():
         "created_at": user.created_at
     })
 
-@app.route('/users', methods=['GET'])
+@app.route('/auth/users', methods=['GET'])
 def get_users():
     users = User.query.all()
     

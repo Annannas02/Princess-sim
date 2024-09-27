@@ -70,7 +70,11 @@ class SessionLog(db.Model):
 with app.app_context():
     db.create_all()
 
-@app.route('/add_user', methods=['POST'])
+@app.route('/sim/status', methods=['GET'])
+def status():
+    return jsonify({"status": "Simulation service is up and running!"}), 200
+
+@app.route('/sim/add_user', methods=['POST'])
 @jwt_required()
 def add_user():
     user_id = get_jwt_identity()  # Get the current user ID from the JWT
@@ -107,7 +111,7 @@ def add_user():
 
 
 
-@app.route('/princess/details', methods=['GET'])
+@app.route('/sim/princess/details', methods=['GET'])
 @jwt_required()
 def get_princess_details():
     user_id = get_jwt_identity()
@@ -122,7 +126,7 @@ def get_princess_details():
         "mood_level": princess.mood_level,
     })
 
-@app.route('/servant/details', methods=['GET'])
+@app.route('/sim/servant/details', methods=['GET'])
 @jwt_required()
 def get_servant_details():
     user_id = get_jwt_identity()
@@ -137,7 +141,7 @@ def get_servant_details():
         "skill_level": servant.skill_level,
     })
 
-@app.route('/request/task', methods=['POST'])
+@app.route('/sim/request/task', methods=['POST'])
 @jwt_required()
 def request_task():
     user_id = get_jwt_identity()
@@ -179,7 +183,7 @@ def request_task():
     return jsonify({"msg": "Task request created and logged", "request_id": new_request.id, "log_id": new_log.id}), 201
 
 
-@app.route('/session/start', methods=['POST'])
+@app.route('/sim/session/start', methods=['POST'])
 @jwt_required()
 def start_session():
     user_id = get_jwt_identity()
@@ -203,7 +207,7 @@ def start_session():
 
     return jsonify({"msg": "Session started", "session_id": new_session.id}), 201
 
-@app.route('/session/end', methods=['POST'])
+@app.route('/sim/session/end', methods=['POST'])
 @jwt_required()
 def end_session():
     data = request.get_json()
@@ -221,8 +225,7 @@ def end_session():
     return jsonify({"msg": "Session ended"}), 200
 
 
-@app.route('/session/logs', methods=['GET'])
-@jwt_required()
+@app.route('/sim/session/logs', methods=['GET'])
 def get_session_logs():
     data = request.get_json()
     session_id = data.get('session_id')
@@ -242,7 +245,7 @@ def get_session_logs():
     
     return jsonify({"logs": logs}), 200
 
-@app.route('/request/complete', methods=['POST'])
+@app.route('/sim/request/complete', methods=['POST'])
 @jwt_required()
 def complete_request():
     user_id = get_jwt_identity()
