@@ -1,32 +1,49 @@
 {
-    "Routes": [
-      {
-        "DownstreamPathTemplate": "/auth/{everything}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "localhost",
-            "Port": 5050
-          }
-        ],
-        "UpstreamPathTemplate": "/auth/{everything}",
-        "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5050
+        }
+      ],
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10000,
+        "MaxConcurrentRequests": 10 
       },
-      {
-        "DownstreamPathTemplate": "/sim/{everything}",
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "localhost",
-            "Port": 5000
-          }
-        ],
-        "UpstreamPathTemplate": "/simulation/{everything}",
-        "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+      "FileCacheOptions": {
+        "TtlSeconds": 300  
       }
-    ],
-    "GlobalConfiguration": {
-      "BaseUrl": "http://localhost:8000"
+    },
+    {
+      "DownstreamPathTemplate": "/simulation/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/simulation/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "QoSOptions": {
+        "TimeoutValue": 5000,
+        "ExceptionsAllowedBeforeBreaking": 3,
+        "DurationOfBreak": 10000,
+        "MaxConcurrentRequests": 10  
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 300  
+      }
     }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8000"
   }
-  
+}

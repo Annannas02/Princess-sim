@@ -12,9 +12,13 @@
       "UpstreamPathTemplate": "/auth/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "QoSOptions": {
-        "TimeoutValue": 5000,  
+        "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10000
+        "DurationOfBreak": 10000,
+        "MaxConcurrentRequests": 10 
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 300  
       }
     },
     {
@@ -29,9 +33,13 @@
       "UpstreamPathTemplate": "/simulation/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "QoSOptions": {
-        "TimeoutValue": 5000,  
+        "TimeoutValue": 5000,
         "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10000
+        "DurationOfBreak": 10000,
+        "MaxConcurrentRequests": 10  
+      },
+      "FileCacheOptions": {
+        "TtlSeconds": 300  
       }
     }
   ],

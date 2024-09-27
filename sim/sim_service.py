@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+import redis
 
 app = Flask(__name__)
+
+redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
 
 # Configuration for the simulation service's database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@localhost:8950/postgres'
@@ -70,11 +73,11 @@ class SessionLog(db.Model):
 with app.app_context():
     db.create_all()
 
-@app.route('/sim/status', methods=['GET'])
+@app.route('/simulation/status', methods=['GET'])
 def status():
     return jsonify({"status": "Simulation service is up and running!"}), 200
 
-@app.route('/sim/add_user', methods=['POST'])
+@app.route('/simulation/add_user', methods=['POST'])
 @jwt_required()
 def add_user():
     user_id = get_jwt_identity()  # Get the current user ID from the JWT
@@ -111,7 +114,7 @@ def add_user():
 
 
 
-@app.route('/sim/princess/details', methods=['GET'])
+@app.route('/simulation/princess/details', methods=['GET'])
 @jwt_required()
 def get_princess_details():
     user_id = get_jwt_identity()
@@ -126,7 +129,7 @@ def get_princess_details():
         "mood_level": princess.mood_level,
     })
 
-@app.route('/sim/servant/details', methods=['GET'])
+@app.route('/simulation/servant/details', methods=['GET'])
 @jwt_required()
 def get_servant_details():
     user_id = get_jwt_identity()
@@ -141,14 +144,14 @@ def get_servant_details():
         "skill_level": servant.skill_level,
     })
 
-@app.route('/sim/request/task', methods=['POST'])
+@app.route('/simulation/request/task', methods=['POST'])
 @jwt_required()
 def request_task():
     user_id = get_jwt_identity()
     data = request.get_json()
 
     task_id = data.get('task_id')
-    session_id = data.get('session_id')  # Assume we get a valid session_id from the client
+    session_key = data.get('session_key')
     princess = PrincessDetails.query.filter_by(user_id=user_id).first()
     # Validate the task
     task = Tasks.query.filter_by(id=task_id).first()
@@ -156,7 +159,7 @@ def request_task():
         return jsonify({"msg": "Invalid task ID"}), 400
 
     # Validate the session
-    session = Session.query.filter_by(id=session_id, end_timestamp=None).first()
+    session = redis_client.hgetall(session_key)
     if not session:
         return jsonify({"msg": "Invalid session or session not found"}), 404
     servant = ServantDetails.query.filter_by(user_id=session.servant_id).first()
@@ -166,7 +169,7 @@ def request_task():
         task_id=task_id,
         princess_id=princess.id,  # Assuming user_id matches princess_details_id
         servant_id=servant.id,
-        session_id=session_id,
+        session_id=session,
         timestamp=db.func.now() 
     )
     db.session.add(new_request)
@@ -183,7 +186,7 @@ def request_task():
     return jsonify({"msg": "Task request created and logged", "request_id": new_request.id, "log_id": new_log.id}), 201
 
 
-@app.route('/sim/session/start', methods=['POST'])
+@app.route('/simulation/session/start', methods=['POST'])
 @jwt_required()
 def start_session():
     user_id = get_jwt_identity()
@@ -205,9 +208,16 @@ def start_session():
     db.session.add(new_session)
     db.session.commit()
 
+    session_key = f"session:{new_session.id}"
+    session_data = {
+    "princess_mood": princess.mood_level,
+    "servant_skill": 1  # Assuming initial skill level
+    }
+
+    redis_client.hmset(session_key, session_data)
     return jsonify({"msg": "Session started", "session_id": new_session.id}), 201
 
-@app.route('/sim/session/end', methods=['POST'])
+@app.route('/simulation/session/end', methods=['POST'])
 @jwt_required()
 def end_session():
     data = request.get_json()
@@ -225,7 +235,7 @@ def end_session():
     return jsonify({"msg": "Session ended"}), 200
 
 
-@app.route('/sim/session/logs', methods=['GET'])
+@app.route('/simulation/session/logs', methods=['GET'])
 def get_session_logs():
     data = request.get_json()
     session_id = data.get('session_id')
@@ -245,7 +255,7 @@ def get_session_logs():
     
     return jsonify({"logs": logs}), 200
 
-@app.route('/sim/request/complete', methods=['POST'])
+@app.route('/simulation/request/complete', methods=['POST'])
 @jwt_required()
 def complete_request():
     user_id = get_jwt_identity()
