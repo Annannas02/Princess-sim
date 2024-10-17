@@ -1,10 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
+from flask_socketio import SocketIO, emit, send, join_room, leave_room
 import redis
 import requests
 
 app = Flask(__name__)
+socketio = SocketIO(app)  # Initialize SocketIO
 
 redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
 
@@ -163,7 +165,7 @@ def request_task():
     data = request.get_json()
 
     task_id = data.get('task_id')
-    session_key = data.get('session_key')
+    session_id = data.get('session_id')  # Assume we get a valid session_id from the client
     princess = PrincessDetails.query.filter_by(user_id=user_id).first()
     # Validate the task
     task = Tasks.query.filter_by(id=task_id).first()
@@ -171,7 +173,7 @@ def request_task():
         return jsonify({"msg": "Invalid task ID"}), 400
 
     # Validate the session
-    session = redis_client.hgetall(session_key)
+    session = Session.query.filter_by(id=session_id, end_timestamp=None).first()
     if not session:
         return jsonify({"msg": "Invalid session or session not found"}), 404
     servant = ServantDetails.query.filter_by(user_id=session.servant_id).first()
@@ -181,7 +183,7 @@ def request_task():
         task_id=task_id,
         princess_id=princess.id,  # Assuming user_id matches princess_details_id
         servant_id=servant.id,
-        session_id=session,
+        session_id=session_id,
         timestamp=db.func.now() 
     )
     db.session.add(new_request)
@@ -226,7 +228,6 @@ def start_session():
     "servant_skill": 1  # Assuming initial skill level
     }
 
-    redis_client.hmset(session_key, session_data)
     return jsonify({"msg": "Session started", "session_id": new_session.id}), 201
 
 @app.route('/simulation/session/end', methods=['POST'])
@@ -286,9 +287,13 @@ def complete_request():
     db.session.commit()
 
     return jsonify({"msg": "Request completed", "request_id": task_request.id}), 200
-
-# Run the Flask app
+# Define a Socket.IO event for the simulation service
+@socketio.on('message')
+def handle_message(data):
+    print('received message: ' + data)
+    send(data)
+# Run the Flask p
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True, port=5000, host='0.0.0.0')
     register_with_consul("simulation-service", "simulation-service-id", 5000)  # For sim_service
 

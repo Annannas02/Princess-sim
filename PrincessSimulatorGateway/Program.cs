@@ -31,6 +31,8 @@ builder.Services.AddOcelot().AddPolly();
 
 var app = builder.Build();
 
+app.MapGet("/gateway/status", () => "Gateway is running");
+
 // gRPC
 app.MapGrpcService<ServiceDiscoveryImpl>().RequireHost("localhost:5081");
 app.MapGrpcReflectionService().RequireHost("localhost:5081");

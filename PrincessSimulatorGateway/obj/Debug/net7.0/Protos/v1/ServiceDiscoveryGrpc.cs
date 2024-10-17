@@ -56,6 +56,10 @@ namespace PrincessSimulatorGateway.Protos {
     static readonly grpc::Marshaller<global::PrincessSimulatorGateway.Protos.GetServicesRequest> __Marshaller_princess_simulator_v1_GetServicesRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PrincessSimulatorGateway.Protos.GetServicesRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::PrincessSimulatorGateway.Protos.GetServicesResponse> __Marshaller_princess_simulator_v1_GetServicesResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PrincessSimulatorGateway.Protos.GetServicesResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PrincessSimulatorGateway.Protos.StatusRequest> __Marshaller_princess_simulator_v1_StatusRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PrincessSimulatorGateway.Protos.StatusRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::PrincessSimulatorGateway.Protos.StatusResponse> __Marshaller_princess_simulator_v1_StatusResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::PrincessSimulatorGateway.Protos.StatusResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::PrincessSimulatorGateway.Protos.RegisterServiceRequest, global::PrincessSimulatorGateway.Protos.RegisterServiceResponse> __Method_RegisterService = new grpc::Method<global::PrincessSimulatorGateway.Protos.RegisterServiceRequest, global::PrincessSimulatorGateway.Protos.RegisterServiceResponse>(
@@ -72,6 +76,14 @@ namespace PrincessSimulatorGateway.Protos {
         "GetServices",
         __Marshaller_princess_simulator_v1_GetServicesRequest,
         __Marshaller_princess_simulator_v1_GetServicesResponse);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::PrincessSimulatorGateway.Protos.StatusRequest, global::PrincessSimulatorGateway.Protos.StatusResponse> __Method_Status = new grpc::Method<global::PrincessSimulatorGateway.Protos.StatusRequest, global::PrincessSimulatorGateway.Protos.StatusResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Status",
+        __Marshaller_princess_simulator_v1_StatusRequest,
+        __Marshaller_princess_simulator_v1_StatusResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -95,6 +107,18 @@ namespace PrincessSimulatorGateway.Protos {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      /// <summary>
+      /// New status method
+      /// </summary>
+      /// <param name="request">The request received from the client.</param>
+      /// <param name="context">The context of the server-side call handler being invoked.</param>
+      /// <returns>The response to send back to the client (wrapped by a task).</returns>
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::PrincessSimulatorGateway.Protos.StatusResponse> Status(global::PrincessSimulatorGateway.Protos.StatusRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
@@ -104,7 +128,8 @@ namespace PrincessSimulatorGateway.Protos {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_RegisterService, serviceImpl.RegisterService)
-          .AddMethod(__Method_GetServices, serviceImpl.GetServices).Build();
+          .AddMethod(__Method_GetServices, serviceImpl.GetServices)
+          .AddMethod(__Method_Status, serviceImpl.Status).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -116,6 +141,7 @@ namespace PrincessSimulatorGateway.Protos {
     {
       serviceBinder.AddMethod(__Method_RegisterService, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::PrincessSimulatorGateway.Protos.RegisterServiceRequest, global::PrincessSimulatorGateway.Protos.RegisterServiceResponse>(serviceImpl.RegisterService));
       serviceBinder.AddMethod(__Method_GetServices, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::PrincessSimulatorGateway.Protos.GetServicesRequest, global::PrincessSimulatorGateway.Protos.GetServicesResponse>(serviceImpl.GetServices));
+      serviceBinder.AddMethod(__Method_Status, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::PrincessSimulatorGateway.Protos.StatusRequest, global::PrincessSimulatorGateway.Protos.StatusResponse>(serviceImpl.Status));
     }
 
   }

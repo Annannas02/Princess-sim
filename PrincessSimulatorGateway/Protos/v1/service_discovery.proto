@@ -10,8 +10,17 @@ import "google/protobuf/wrappers.proto";
 service ServiceDiscoveryService {
     rpc RegisterService(RegisterServiceRequest) returns (RegisterServiceResponse);
     rpc GetServices(GetServicesRequest) returns (GetServicesResponse);
+    rpc Status(StatusRequest) returns (StatusResponse);  // New status method
   }
   
+  // Message for requesting status
+  message StatusRequest {}
+
+  // Message for status response
+  message StatusResponse {
+    string message = 1;
+  }
+    
   // Message for registering a service
   message RegisterServiceRequest {
     string name = 1;

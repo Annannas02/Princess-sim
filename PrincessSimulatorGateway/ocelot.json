@@ -38,6 +38,26 @@
         "Limit": 1
       }
     },
+
+    {
+      "DownstreamPathTemplate": "/gateway/status",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/status",
+      "UpstreamHttpMethod": [ "GET"],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "30s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    },
     {
       "DownstreamPathTemplate": "/princess_simulator.v1.ServiceDiscoveryService/{method}",
       "DownstreamScheme": "http",

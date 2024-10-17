@@ -55,5 +55,13 @@ namespace PrincessSimulatorGateway.Services
 
             return response;
         }
+
+        public override Task<StatusResponse> Status(StatusRequest request, ServerCallContext context)
+        {
+            return Task.FromResult(new StatusResponse
+            {
+                Message = "Service Discovery is running"
+            });
+        }
     }
 }

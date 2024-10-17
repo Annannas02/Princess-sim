@@ -4,10 +4,9 @@
       "DownstreamPathTemplate": "/auth/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5050
-        }
+        { "Host": "localhost", "Port": 5051 },
+        { "Host": "localhost", "Port": 5052 },
+        { "Host": "localhost", "Port": 5053 }
       ],
       "UpstreamPathTemplate": "/auth/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
@@ -17,16 +16,18 @@
         "Period": "30s",
         "PeriodTimespan": 1,
         "Limit": 1
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       }
     },
     {
       "DownstreamPathTemplate": "/simulation/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5000
-        }
+        { "Host": "localhost", "Port": 5001 },
+        { "Host": "localhost", "Port": 5002 },
+        { "Host": "localhost", "Port": 5003 }
       ],
       "UpstreamPathTemplate": "/simulation/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
@@ -34,6 +35,29 @@
         "ClientWhitelist": [],
         "EnableRateLimiting": true,
         "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
+    },
+
+    {
+      "DownstreamPathTemplate": "/gateway/status",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/status",
+      "UpstreamHttpMethod": [ "GET"],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "30s",
         "PeriodTimespan": 1,
         "Limit": 1
       }
