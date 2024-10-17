@@ -11,14 +11,12 @@
       ],
       "UpstreamPathTemplate": "/auth/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "QoSOptions": {
-        "TimeoutValue": 5000,
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10000,
-        "MaxConcurrentRequests": 10 
-      },
-      "FileCacheOptions": {
-        "TtlSeconds": 300  
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "30s",
+        "PeriodTimespan": 1,
+        "Limit": 1
       }
     },
     {
@@ -32,18 +30,38 @@
       ],
       "UpstreamPathTemplate": "/simulation/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "QoSOptions": {
-        "TimeoutValue": 5000,
-        "ExceptionsAllowedBeforeBreaking": 3,
-        "DurationOfBreak": 10000,
-        "MaxConcurrentRequests": 10  
-      },
-      "FileCacheOptions": {
-        "TtlSeconds": 300  
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/princess_simulator.v1.ServiceDiscoveryService/{method}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5081  
+        }
+      ],
+      "UpstreamPathTemplate": "/princess_simulator.v1.ServiceDiscoveryService/{method}",
+      "UpstreamHttpMethod": [ "POST" ],
+      "Grpc": {
+        "Enable": true
       }
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:8000"
+    "BaseUrl": "http://localhost:8000",
+    "RateLimitOptions": {
+    "DisableRateLimitHeaders": false,
+    "QuotaExceededMessage": "Baka!!!!",
+    "HttpStatusCode": 418, 
+    "ClientIdHeader": "MyRateLimiting"
   }
+
+}
 }

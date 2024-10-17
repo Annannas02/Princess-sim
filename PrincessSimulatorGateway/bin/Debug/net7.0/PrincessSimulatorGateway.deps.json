@@ -8,10 +8,16 @@
     ".NETCoreApp,Version=v7.0": {
       "PrincessSimulatorGateway/1.0.0": {
         "dependencies": {
+          "Consul": "1.7.14.4",
+          "Google.Protobuf": "3.28.2",
+          "Grpc.AspNetCore": "2.66.0",
+          "Grpc.AspNetCore.Server.Reflection": "2.66.0",
+          "Grpc.Tools": "2.67.0",
           "Microsoft.AspNetCore.OpenApi": "7.0.12",
           "Microsoft.Extensions.Configuration.Json": "8.0.0",
-          "Ocelot": "23.3.3",
+          "Ocelot": "23.3.4",
           "Ocelot.Cache.CacheManager": "23.3.3",
+          "Ocelot.Provider.Consul": "23.3.3",
           "Ocelot.Provider.Polly": "23.3.3",
           "StackExchange.Redis": "2.8.16",
           "Swashbuckle.AspNetCore": "6.5.0"
@@ -59,14 +65,133 @@
           }
         }
       },
-      "FluentValidation/11.8.0": {
+      "Consul/1.7.14.4": {
+        "dependencies": {
+          "Microsoft.CSharp": "4.7.0",
+          "Newtonsoft.Json": "13.0.1"
+        },
         "runtime": {
-          "lib/net7.0/FluentValidation.dll": {
-            "assemblyVersion": "11.0.0.0",
-            "fileVersion": "11.8.0.0"
+          "lib/netstandard2.0/Consul.dll": {
+            "assemblyVersion": "1.7.14.4",
+            "fileVersion": "1.7.14.4"
           }
         }
       },
+      "FluentValidation/11.10.0": {
+        "runtime": {
+          "lib/net7.0/FluentValidation.dll": {
+            "assemblyVersion": "11.0.0.0",
+            "fileVersion": "11.10.0.0"
+          }
+        }
+      },
+      "Google.Protobuf/3.28.2": {
+        "runtime": {
+          "lib/net5.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.28.2.0",
+            "fileVersion": "3.28.2.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore/2.66.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.28.2",
+          "Grpc.AspNetCore.Server.ClientFactory": "2.66.0",
+          "Grpc.Tools": "2.67.0"
+        }
+      },
+      "Grpc.AspNetCore.Server/2.66.0": {
+        "dependencies": {
+          "Grpc.Net.Common": "2.66.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.AspNetCore.Server.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore.Server.ClientFactory/2.66.0": {
+        "dependencies": {
+          "Grpc.AspNetCore.Server": "2.66.0",
+          "Grpc.Net.ClientFactory": "2.66.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.AspNetCore.Server.ClientFactory.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.AspNetCore.Server.Reflection/2.66.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.28.2",
+          "Grpc.AspNetCore.Server": "2.66.0",
+          "Grpc.Reflection": "2.66.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.AspNetCore.Server.Reflection.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Core.Api/2.66.0": {
+        "runtime": {
+          "lib/netstandard2.1/Grpc.Core.Api.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Net.Client/2.66.0": {
+        "dependencies": {
+          "Grpc.Net.Common": "2.66.0",
+          "Microsoft.Extensions.Logging.Abstractions": "7.0.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.Net.Client.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Net.ClientFactory/2.66.0": {
+        "dependencies": {
+          "Grpc.Net.Client": "2.66.0",
+          "Microsoft.Extensions.Http": "6.0.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.Net.ClientFactory.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Net.Common/2.66.0": {
+        "dependencies": {
+          "Grpc.Core.Api": "2.66.0"
+        },
+        "runtime": {
+          "lib/net7.0/Grpc.Net.Common.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Reflection/2.66.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.28.2",
+          "Grpc.Core.Api": "2.66.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Grpc.Reflection.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.66.0.0"
+          }
+        }
+      },
+      "Grpc.Tools/2.67.0": {},
       "IPAddressRange/6.0.0": {
         "runtime": {
           "lib/net7.0/IPAddressRange.dll": {
@@ -75,39 +200,39 @@
           }
         }
       },
-      "Microsoft.AspNetCore.JsonPatch/7.0.14": {
+      "Microsoft.AspNetCore.JsonPatch/7.0.20": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
           "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
           "lib/net7.0/Microsoft.AspNetCore.JsonPatch.dll": {
-            "assemblyVersion": "7.0.14.0",
-            "fileVersion": "7.0.1423.52316"
+            "assemblyVersion": "7.0.20.0",
+            "fileVersion": "7.0.2024.26907"
           }
         }
       },
-      "Microsoft.AspNetCore.MiddlewareAnalysis/7.0.14": {
+      "Microsoft.AspNetCore.MiddlewareAnalysis/7.0.20": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
         },
         "runtime": {
           "lib/net7.0/Microsoft.AspNetCore.MiddlewareAnalysis.dll": {
-            "assemblyVersion": "7.0.14.0",
-            "fileVersion": "7.0.1423.52316"
+            "assemblyVersion": "7.0.20.0",
+            "fileVersion": "7.0.2024.26907"
           }
         }
       },
-      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/7.0.14": {
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/7.0.20": {
         "dependencies": {
-          "Microsoft.AspNetCore.JsonPatch": "7.0.14",
+          "Microsoft.AspNetCore.JsonPatch": "7.0.20",
           "Newtonsoft.Json": "13.0.1",
           "Newtonsoft.Json.Bson": "1.0.2"
         },
         "runtime": {
           "lib/net7.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
-            "assemblyVersion": "7.0.14.0",
-            "fileVersion": "7.0.1423.52316"
+            "assemblyVersion": "7.0.20.0",
+            "fileVersion": "7.0.2024.26907"
           }
         }
       },
@@ -250,6 +375,14 @@
           }
         }
       },
+      "Microsoft.Extensions.Http/6.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
+          "Microsoft.Extensions.Logging": "7.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "7.0.0",
+          "Microsoft.Extensions.Options": "7.0.0"
+        }
+      },
       "Microsoft.Extensions.Logging/7.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
@@ -307,18 +440,18 @@
           }
         }
       },
-      "Ocelot/23.3.3": {
+      "Ocelot/23.3.4": {
         "dependencies": {
-          "FluentValidation": "11.8.0",
+          "FluentValidation": "11.10.0",
           "IPAddressRange": "6.0.0",
-          "Microsoft.AspNetCore.MiddlewareAnalysis": "7.0.14",
-          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.14",
+          "Microsoft.AspNetCore.MiddlewareAnalysis": "7.0.20",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.20",
           "Microsoft.Extensions.DiagnosticAdapter": "3.1.32"
         },
         "runtime": {
           "lib/net7.0/Ocelot.dll": {
-            "assemblyVersion": "23.3.3.0",
-            "fileVersion": "23.3.3.0"
+            "assemblyVersion": "23.3.4.0",
+            "fileVersion": "23.3.4.0"
           }
         }
       },
@@ -332,7 +465,7 @@
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "Microsoft.Extensions.Logging": "7.0.0",
           "Microsoft.NETCore.Platforms": "7.0.4",
-          "Ocelot": "23.3.3"
+          "Ocelot": "23.3.4"
         },
         "runtime": {
           "lib/net7.0/Ocelot.Cache.CacheManager.dll": {
@@ -341,9 +474,21 @@
           }
         }
       },
+      "Ocelot.Provider.Consul/23.3.3": {
+        "dependencies": {
+          "Consul": "1.7.14.4",
+          "Ocelot": "23.3.4"
+        },
+        "runtime": {
+          "lib/net7.0/Ocelot.Provider.Consul.dll": {
+            "assemblyVersion": "23.3.3.0",
+            "fileVersion": "23.3.3.0"
+          }
+        }
+      },
       "Ocelot.Provider.Polly/23.3.3": {
         "dependencies": {
-          "Ocelot": "23.3.3",
+          "Ocelot": "23.3.4",
           "Polly": "8.4.0"
         },
         "runtime": {
@@ -566,12 +711,96 @@
       "path": "cachemanager.microsoft.extensions.logging/2.0.0-beta-1629",
       "hashPath": "cachemanager.microsoft.extensions.logging.2.0.0-beta-1629.nupkg.sha512"
     },
-    "FluentValidation/11.8.0": {
+    "Consul/1.7.14.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-TiEaaYqSIAS+wXQv46LRm8Mca092XYNePD0n231Hqlkmm5FuToZoWnjI1ef/vJUxBzqR7/k2vaVQXxijNgVKRQ==",
-      "path": "fluentvalidation/11.8.0",
-      "hashPath": "fluentvalidation.11.8.0.nupkg.sha512"
+      "sha512": "sha512-0+vCXo9I0sSJJfFafBN1VGtu/Ya1Sw26fmmGDX3TdYZRq7ScXjZC8tvMIcrxNpxwyWN+e7sxn/aZ9XiZHS4LCw==",
+      "path": "consul/1.7.14.4",
+      "hashPath": "consul.1.7.14.4.nupkg.sha512"
+    },
+    "FluentValidation/11.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qsJGSJDdZ8qiG+lVJ70PZfJHcEdq8UQZ/tZDXoj78/iHKG6lVKtMJsD11zyyv/IPc7rwqGqnFoFLTNzpo3IPYg==",
+      "path": "fluentvalidation/11.10.0",
+      "hashPath": "fluentvalidation.11.10.0.nupkg.sha512"
+    },
+    "Google.Protobuf/3.28.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Z86ZKAB+v1B/m0LTM+EVamvZlYw/g3VND3/Gs4M/+aDIxa2JE9YPKjDxTpf0gv2sh26hrve3eI03brxBmzn92g==",
+      "path": "google.protobuf/3.28.2",
+      "hashPath": "google.protobuf.3.28.2.nupkg.sha512"
+    },
+    "Grpc.AspNetCore/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-b4V5V/yiCeK94wiQReUyHPB/Xj/fCaDWhlcFnYzSCm3pQtyADAN9t3g7V631PzLjFZQnPn9iIN3M6BHnVx3nfA==",
+      "path": "grpc.aspnetcore/2.66.0",
+      "hashPath": "grpc.aspnetcore.2.66.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SogFEs8bLvcRtEWMdueOJeMxiaLryvyivWtmBwz/vLtS5xlN4Zrfv+npMbn1PS4iT99AqBY+R+bRxdIFfvfeIA==",
+      "path": "grpc.aspnetcore.server/2.66.0",
+      "hashPath": "grpc.aspnetcore.server.2.66.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server.ClientFactory/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-glLCZ5K8iBSzzd2eIKjMBYBApygvwJqGJ87FBJrHL4bSrnBTywCUFfLj2EckiPjvvW6SNwLtapwdY4Sj0WwWQg==",
+      "path": "grpc.aspnetcore.server.clientfactory/2.66.0",
+      "hashPath": "grpc.aspnetcore.server.clientfactory.2.66.0.nupkg.sha512"
+    },
+    "Grpc.AspNetCore.Server.Reflection/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B34FAG9XQ3TiQJT4Tg1KgmtxzWDaHZszu79M2K7mvfC3iRIVgqknxuc9Wp2xTpeWih8iQ1aj2vDD3CqRgWbl4g==",
+      "path": "grpc.aspnetcore.server.reflection/2.66.0",
+      "hashPath": "grpc.aspnetcore.server.reflection.2.66.0.nupkg.sha512"
+    },
+    "Grpc.Core.Api/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HsjsQVAHe4hqP4t4rpUnmq+MZvPdyrlPsWF4T5fbMvyP3o/lMV+KVJfDlaNH8+v0aGQTVT3EsDFufbhaWb52cw==",
+      "path": "grpc.core.api/2.66.0",
+      "hashPath": "grpc.core.api.2.66.0.nupkg.sha512"
+    },
+    "Grpc.Net.Client/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GwkSsssXFgN9+M2U+UQWdErf61sn1iqgP+2NRBlDXATcP9vlxda0wySxd/eIL8U522+SnyFNUXlvQ5tAzGk9cA==",
+      "path": "grpc.net.client/2.66.0",
+      "hashPath": "grpc.net.client.2.66.0.nupkg.sha512"
+    },
+    "Grpc.Net.ClientFactory/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I6HUbtcqb24OiQlbvxpBLruCxQ8wrmJ5tUtU96QK7nqyerrMLeqLDDbhotznPAnZtR8x1bJvck/Xt4fgvVo92Q==",
+      "path": "grpc.net.clientfactory/2.66.0",
+      "hashPath": "grpc.net.clientfactory.2.66.0.nupkg.sha512"
+    },
+    "Grpc.Net.Common/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YJpQpIvpo0HKlsG6SHwaieyji08qfv0DdEDIewCAA0egQY08637sHOj1netLGUhzBEsCqlGC3e92TZ2uqhxnvw==",
+      "path": "grpc.net.common/2.66.0",
+      "hashPath": "grpc.net.common.2.66.0.nupkg.sha512"
+    },
+    "Grpc.Reflection/2.66.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7nehpWepeZMD5nOA+DIq020UikgfTgmGqKwBHxoDYbQELmhuM9zkWO8xYlfd0C8UqdKB+enZYInGpVM1vIveEw==",
+      "path": "grpc.reflection/2.66.0",
+      "hashPath": "grpc.reflection.2.66.0.nupkg.sha512"
+    },
+    "Grpc.Tools/2.67.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AQwGGe1dhCWlO72dTW4XtZBsvE9+mHt5rUpVOPjX9Q6sYZZ0GFyqs+7DjFeulaHKjsOg7Wteob1oq7a++SJWgA==",
+      "path": "grpc.tools/2.67.0",
+      "hashPath": "grpc.tools.2.67.0.nupkg.sha512"
     },
     "IPAddressRange/6.0.0": {
       "type": "package",
@@ -580,26 +809,26 @@
       "path": "ipaddressrange/6.0.0",
       "hashPath": "ipaddressrange.6.0.0.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.JsonPatch/7.0.14": {
+    "Microsoft.AspNetCore.JsonPatch/7.0.20": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JDfx+i3bXFJ05ELOQbrgSnQxCbN2bHh2KXtMCQlceqIHVlHSiex+m6sUpx6UCUQzAhYkLktTQdFKsHYAb57hxQ==",
-      "path": "microsoft.aspnetcore.jsonpatch/7.0.14",
-      "hashPath": "microsoft.aspnetcore.jsonpatch.7.0.14.nupkg.sha512"
+      "sha512": "sha512-FXvO8oYcSuDEbyX51VU5AQRhLQGPPpCOXLpmF4GGWRrEEE2+dLzvkgDvCRODRuEDLVIAOQosEfhiBRyh20Id5A==",
+      "path": "microsoft.aspnetcore.jsonpatch/7.0.20",
+      "hashPath": "microsoft.aspnetcore.jsonpatch.7.0.20.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.MiddlewareAnalysis/7.0.14": {
+    "Microsoft.AspNetCore.MiddlewareAnalysis/7.0.20": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ZLy9eWEkgWnv9tM8tj4wpsNRyQ1zALDLZemh2prWO25x0VaSpTsvt8RYVwZ0hLnjQI8VubaLAEJ1il7zB22u/Q==",
-      "path": "microsoft.aspnetcore.middlewareanalysis/7.0.14",
-      "hashPath": "microsoft.aspnetcore.middlewareanalysis.7.0.14.nupkg.sha512"
+      "sha512": "sha512-0rEDOjIzPlJka21CG+rJ2/nDkPvpV2pjykfjoZANgvjdb+Pn9xpACsEq9d6R8s/hiM486Fj3Hm0w4JevQ/p7ZA==",
+      "path": "microsoft.aspnetcore.middlewareanalysis/7.0.20",
+      "hashPath": "microsoft.aspnetcore.middlewareanalysis.7.0.20.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/7.0.14": {
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/7.0.20": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-pqXWiNXjgnAzofH5E+HzmYppy58+X2TY8gSao7PyWf1wa4IjHosNQ2UvnRZ0GRYgyV9xcQwuaKBFQqOJPCFCkg==",
-      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/7.0.14",
-      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.7.0.14.nupkg.sha512"
+      "sha512": "sha512-l5ARvFKH/y6FT6sCpCDmlUlSG7kvvuUOiwvzaUN2EDJnx47XpCQKLARmAwr/omB1wlQiJA8gOCsdsV8KIZnz/A==",
+      "path": "microsoft.aspnetcore.mvc.newtonsoftjson/7.0.20",
+      "hashPath": "microsoft.aspnetcore.mvc.newtonsoftjson.7.0.20.nupkg.sha512"
     },
     "Microsoft.AspNetCore.OpenApi/7.0.12": {
       "type": "package",
@@ -713,6 +942,13 @@
       "path": "microsoft.extensions.filesystemglobbing/8.0.0",
       "hashPath": "microsoft.extensions.filesystemglobbing.8.0.0.nupkg.sha512"
     },
+    "Microsoft.Extensions.Http/6.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-15+pa2G0bAMHbHewaQIdr/y6ag2H3yh4rd9hTXavtWDzQBkvpe2RMqFg8BxDpcQWssmjmBApGPcw93QRz6YcMg==",
+      "path": "microsoft.extensions.http/6.0.0",
+      "hashPath": "microsoft.extensions.http.6.0.0.nupkg.sha512"
+    },
     "Microsoft.Extensions.Logging/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -776,12 +1012,12 @@
       "path": "newtonsoft.json.bson/1.0.2",
       "hashPath": "newtonsoft.json.bson.1.0.2.nupkg.sha512"
     },
-    "Ocelot/23.3.3": {
+    "Ocelot/23.3.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BQ+yR5JqFjmJQjxKA0sJYAWbZW7cJXDuaYCkKH1mAZ0R+D80BhALxVEWNVy7eeB3YtB9EqOyL3LWoNMfXuYkyA==",
-      "path": "ocelot/23.3.3",
-      "hashPath": "ocelot.23.3.3.nupkg.sha512"
+      "sha512": "sha512-e/7epD8HHFVK8ugjRDyezBRA0uSCFk3vrG4X6bx8MJj7rpTfV+HESNqJnF80Z+QfNcEqQtjsqKYATgSBbQ/NyA==",
+      "path": "ocelot/23.3.4",
+      "hashPath": "ocelot.23.3.4.nupkg.sha512"
     },
     "Ocelot.Cache.CacheManager/23.3.3": {
       "type": "package",
@@ -789,6 +1025,13 @@
       "sha512": "sha512-1qh4Nae2+1WukuBUVzMKdTpsJqr6Cee7fC6iqXzA5w82X+EJALFglPS8+Iq+XtmWeCjmeFmUcxHP9JvUv9L/qg==",
       "path": "ocelot.cache.cachemanager/23.3.3",
       "hashPath": "ocelot.cache.cachemanager.23.3.3.nupkg.sha512"
+    },
+    "Ocelot.Provider.Consul/23.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-X5pmq8WowF1caLnRHD3NuF8GQI9D9R6sBn+r5YGly6SA7/Nz24W3hQ/PRhjhgtRv9SDafQU0YGQDbRb7xIBFNw==",
+      "path": "ocelot.provider.consul/23.3.3",
+      "hashPath": "ocelot.provider.consul.23.3.3.nupkg.sha512"
     },
     "Ocelot.Provider.Polly/23.3.3": {
       "type": "package",

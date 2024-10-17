@@ -1,0 +1,3 @@
+obj\Debug\net7.0\Protos\v1/ServiceDiscovery.cs \
+obj\Debug\net7.0\Protos\v1/ServiceDiscoveryGrpc.cs: C:/Users/georg/.nuget/packages/grpc.tools/2.67.0/build/native/include/google/protobuf/wrappers.proto\
+ Protos/v1/service_discovery.proto

@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 import bcrypt
+import time
+import requests
 
 app = Flask(__name__)
 
@@ -24,6 +26,17 @@ class User(db.Model):
     
 with app.app_context():
     db.create_all()
+
+def register_with_consul(service_name, service_id, service_port):
+    url = "http://localhost:8500/v1/agent/auth/register"
+    data = {
+        "Name": service_name,
+        "ID": service_id,
+        "Address": "localhost",
+        "Port": service_port,
+        "Tags": ["flask", service_name]
+    }
+    requests.put(url, json=data)
 
 @app.route('/auth/status', methods=['GET'])
 def status():
@@ -101,3 +114,4 @@ def get_users():
 # Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
+    register_with_consul("auth-service", "auth-service-id", 5050)  # For auth_service

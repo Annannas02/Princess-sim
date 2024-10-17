@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option csharp_namespace = "PrincessSimulatorGateway.Protos";
+
+package princess_simulator.v1;
+
+import "google/protobuf/wrappers.proto";
+
+// Service definition for ServiceDiscovery
+service ServiceDiscoveryService {
+    rpc RegisterService(RegisterServiceRequest) returns (RegisterServiceResponse);
+    rpc GetServices(GetServicesRequest) returns (GetServicesResponse);
+  }
+  
+  // Message for registering a service
+  message RegisterServiceRequest {
+    string name = 1;
+    string id = 2;
+    string address = 3;
+    int32 port = 4;
+    repeated string tags = 5;  // List of tags for the service
+  }
+  
+  // Response for registering a service
+  message RegisterServiceResponse {
+    bool success = 1;
+    string message = 2;
+  }
+  
+  // Request for retrieving services (empty as we’re retrieving all services)
+  message GetServicesRequest {}
+  
+  // Response for retrieving all registered services
+  message GetServicesResponse {
+    repeated ServiceRegistration services = 1;
+  }
+  
+  // Details for each service registration
+  message ServiceRegistration {
+    string name = 1;
+    string id = 2;
+    string address = 3;
+    int32 port = 4;
+    repeated string tags = 5;
+  }

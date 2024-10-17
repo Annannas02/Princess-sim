@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 import redis
+import requests
 
 app = Flask(__name__)
 
@@ -72,6 +73,17 @@ class SessionLog(db.Model):
 
 with app.app_context():
     db.create_all()
+
+def register_with_consul(service_name, service_id, service_port):
+    url = "http://localhost:8500/v1/agent/sim/register"
+    data = {
+        "Name": service_name,
+        "ID": service_id,
+        "Address": "localhost",
+        "Port": service_port,
+        "Tags": ["flask", service_name]
+    }
+    requests.put(url, json=data)
 
 @app.route('/simulation/status', methods=['GET'])
 def status():
@@ -278,3 +290,5 @@ def complete_request():
 # Run the Flask app
 if __name__ == '__main__':
     app.run(debug=True)
+    register_with_consul("simulation-service", "simulation-service-id", 5000)  # For sim_service
+
