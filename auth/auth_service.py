@@ -4,11 +4,12 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 import bcrypt
 import time
 import requests
+import os
 
 app = Flask(__name__)
 
 # Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://user:password@localhost:8900/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', 'postgresql://test_user:test_password@db:5432/test_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'  # Change this for production
 db = SQLAlchemy(app)
@@ -25,6 +26,7 @@ class User(db.Model):
 
     
 with app.app_context():
+    db.drop_all()
     db.create_all()
 
 def register_with_consul(service_name, service_id, service_port):

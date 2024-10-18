@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  auth-app:
+    build: ./auth
+    container_name: auth-app
+    ports:
+      - "5050:5050"
+    environment:
+      - POSTGRES_USER=auth_user
+      - POSTGRES_PASSWORD=auth_password
+      - POSTGRES_DB=auth_db
+      - SQLALCHEMY_DATABASE_URI=postgresql://auth_user:auth_password@authdb:5432/auth_db
+      - JWT_SECRET_KEY=your_jwt_secret_key
+      - REDIS_HOST=redis
+      - RESIS_PORT=6397
+      - PORT=5050
+    depends_on:
+      - authdb
+      - redis
+    volumes:
+      - ./auth:/auth-app
+
+  sim-app:
+    build: ./sim
+    container_name: sim-app
+    ports:
+      - "5000:5000"
+    environment:
+      - POSTGRES_USER=sim_user
+      - POSTGRES_PASSWORD=sim_password
+      - POSTGRES_DB=sim_db
+      - SQLALCHEMY_DATABASE_URI=postgresql://sim_user:sim_password@simdb:5432/sim_db
+      - JWT_SECRET_KEY=your_jwt_secret_key
+      - REDIS_HOST=redis
+      - RESIS_PORT=6397
+      - PORT=5000
+    depends_on:
+      - simdb
+      - redis
+    volumes:
+      - ./sim:/sim-app
+
+  authdb:
+    image: postgres:13
+    container_name: authdb
+    environment:
+      - POSTGRES_USER=auth_user
+      - POSTGRES_PASSWORD=auth_password
+      - POSTGRES_DB=auth_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - auth_postgres_data:/var/lib/postgresql/data
+
+  simdb:
+    image: postgres:13
+    container_name: simdb
+    environment:
+      - POSTGRES_USER=sim_user
+      - POSTGRES_PASSWORD=sim_password
+      - POSTGRES_DB=sim_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - sim_postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+
+volumes:
+  auth_postgres_data:
+    driver: local
+  sim_postgres_data:
+    driver: local

@@ -4,9 +4,10 @@
       "DownstreamPathTemplate": "/auth/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5051 },
-        { "Host": "localhost", "Port": 5052 },
-        { "Host": "localhost", "Port": 5053 }
+        {
+          "Host": "localhost",
+          "Port": 5050
+        }
       ],
       "UpstreamPathTemplate": "/auth/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
@@ -16,18 +17,16 @@
         "Period": "30s",
         "PeriodTimespan": 1,
         "Limit": 1
-      },
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
       }
     },
     {
       "DownstreamPathTemplate": "/simulation/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
-        { "Host": "localhost", "Port": 5001 },
-        { "Host": "localhost", "Port": 5002 },
-        { "Host": "localhost", "Port": 5003 }
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
       ],
       "UpstreamPathTemplate": "/simulation/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
@@ -37,9 +36,6 @@
         "Period": "1s",
         "PeriodTimespan": 1,
         "Limit": 1
-      },
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
       }
     },
 
